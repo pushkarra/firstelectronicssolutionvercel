@@ -100,9 +100,11 @@ const SliderImage = ({ slides, autoPlay }) => {
 
 const Wrapper = styled.section`
 
+
+
 .slider {
     position: relative;
-    height: 65vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,8 +115,8 @@ const Wrapper = styled.section`
   }
   
   .image {
-    width: 490px;
-    height: 420px;
+    width: 470px;
+    height: 380px;
     border-radius: 10px;
     cursor: pointer;
   }
@@ -152,6 +154,30 @@ const Wrapper = styled.section`
     transform: scale(1.08);
   }
 
+
+ 
+
+  @media screen and (max-width : 450px){
+
+    .slider {
+        position: relative;
+        height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .image {
+        width: 220px;
+        height: 230px;
+        border-radius: 10px;
+      }
+  
+  
+  }
+
+  
+
   @media screen and (max-width : 650px){
 
     .slider {
@@ -173,24 +199,24 @@ const Wrapper = styled.section`
 
 
 
-  @media screen and (max-width : 1050px){
+  // @media screen and (max-width : 1050px){
 
-    .slider {
-        position: relative;
-        height: 70vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  //   .slider {
+  //       position: relative;
+  //       height: 70vh;
+  //       display: flex;
+  //       justify-content: center;
+  //       align-items: center;
+  //     }
       
-      .image {
-        width: 37rem;
-        height: 35rem;
-        border-radius: 10px;
-      }
+  //     .image {
+  //       width: 37rem;
+  //       height: 35rem;
+  //       border-radius: 10px;
+  //     }
 
 
-  }
+  // }
 
 
 ;`

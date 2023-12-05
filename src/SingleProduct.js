@@ -8,7 +8,8 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace, TbUsersGroup } from "react-icons/tb";
 
 
-const API = "https://productdataapi-production.up.railway.app/api/products";
+// const API = "https://productdataapi-production.up.railway.app/api/products";
+const API = "https://finalapi.vercel.app/api/products";
 
 const SingleProduct = () => {
   const { ide } = useParams();
