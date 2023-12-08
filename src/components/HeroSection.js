@@ -203,29 +203,31 @@ const Wrapper = styled.section`
          letter-spacing: 1px;
          cursor: pointer;
          content: center;
-         color: #fff;
-         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
-         margin-right: 5px;
-         margin-left: 30px;
-         transition: 0.5s ease-out;
+        //  color: #fff;
+        //  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
+        //  margin-right: 5px;
+        //  margin-left: 30px;
+        //  transition: 0.5s ease-out;
        }
        
-      //  h1 span {
-      //    transition: 0.5s ease-out;
-      //  }
-      //  h1:hover span:nth-child(1) {
-      //    margin-right: 5px;
-      //  }
-      //  h1:hover span:nth-child(1):after {
-      //   //  content: "'";
-      //  }
-      //  h1:hover span:nth-child(2) {
-      //    margin-left: 30px;
-      //  }
-      //  h1:hover span {
-      //    color: #fff;
-      //    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
-      //  }
+       h1 span {
+         transition: 0.5s ease-out;
+       }
+       h1:hover span:nth-child(1) {
+         margin-right: 5px;
+       }
+       h1:hover span:nth-child(1):after {
+        //  content: "'";
+       }
+       h1:hover span:nth-child(2) {
+         margin-left: 30px;
+       }
+       h1:hover span {
+        //  color: #fff;
+        color: #231A1A;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
+        
+       }
 
     }
 

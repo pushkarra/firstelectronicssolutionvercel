@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { keyframes } from "styled-components";
 // import Footer from "./components/Footer";
 import { useParams } from "react-router-dom";
 // import PageNavigation from "./components/PageNavigation";
@@ -10,6 +11,20 @@ import { TbTruckDelivery, TbReplace, TbUsersGroup } from "react-icons/tb";
 
 // const API = "https://productdataapi-production.up.railway.app/api/products";
 const API = "https://finalapi.vercel.app/api/products";
+
+const colorfulSquareColors = ["#2B03E0", "#FF1900", "#198E01", "#FFC61C"];
+
+const bounceAnimation = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
 
 const SingleProduct = () => {
   const { ide } = useParams();
@@ -43,12 +58,25 @@ const SingleProduct = () => {
   }, [ide]);
 
   if (isSingleLoading) {
-    return <div className="page_loading">Loading.....</div>;
+    // return <div className="page_loading">Loading.....</div>;
+   
+  return (
+    <LoadingContainer>
+      <LoadingText>Loading...</LoadingText>
+      <BouncingSquaresContainer>
+        {colorfulSquareColors.map((color, index) => (
+          <BouncingSquare key={index} color={color} />
+        ))}
+      </BouncingSquaresContainer>
+    </LoadingContainer>
+  );
   }
 
   if (!singleProduct) {
     return <div className="error_message">Data not available</div>;
   }
+
+  
 
   const {
     name,
@@ -321,10 +349,6 @@ const SingleProduct = () => {
 
 
 
-
-
-// Import other dependencies and components as before
-
 const ColorCircle = styled.div`
   width: 24px; /* Adjust the size as needed */
   height: 24px; /* Adjust the size as needed */
@@ -361,7 +385,37 @@ const InfoLabel = styled.span`
   font-size: 1.5rem;
 `;
 
-// Rest of the code remains the same
+
+const LoadingContainer = styled.div`
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  height: 100px;
+`;
+
+const LoadingText = styled.div`
+  font-size: 24px;
+  margin-bottom: 19px;
+  color: #333;
+`;
+
+const BouncingSquaresContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const BouncingSquare = styled.div`
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  background-color: ${(props) => props.color};
+  animation: ${bounceAnimation} 1s infinite;
+`;
+
 
 
 
@@ -376,6 +430,11 @@ background-color:  #F8CDA8;
     
     
   }
+
+  
+
+
+
 
   ul {
     font-family: "American Typewrite", sans-serif; /* Replace with your chosen font family */
