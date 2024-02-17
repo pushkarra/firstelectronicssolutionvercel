@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import Footer from "./components/Footer";
+import { useEffect } from 'react';
 
 const Contact = () => {
+    useEffect(() => {
+        // Scroll to the top when the component mounts
+        window.scrollTo(0, 0);
+      }, []);
   const Wrapper = styled.section`
     padding: 4rem 0 4rem 0;
     text-align: center;

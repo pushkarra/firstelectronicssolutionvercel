@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Button } from "../styles/Button";
 import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa";
 
@@ -70,8 +70,8 @@ const Footer = () => {
                 @{new Date().getFullYear()} First Electronics. All Rights Reserved
               </p>
               <div>
-                <p>PRIVACY POLICY</p>
-                <p>TERMS & CONDITIONS</p>
+                <p><Link to="/privacy" style={{ color: 'white' }}>Privacy Policy</Link></p>
+              
               </div>
             </div>
           </div>
@@ -180,5 +180,6 @@ background-color: #FFE2C9;
     }
   }
 `;
+
 
 export default Footer;

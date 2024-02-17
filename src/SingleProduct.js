@@ -32,6 +32,10 @@ const SingleProduct = () => {
   const [isSingleLoading, setIsSingleLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${API}?ide=${ide}`);
