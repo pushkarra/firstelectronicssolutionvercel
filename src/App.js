@@ -10,7 +10,7 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Privacy from "./components/Privacy";
-
+// git push origin master 
 const App = () => {
 
   const theme = {

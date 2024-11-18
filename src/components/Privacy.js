@@ -22,7 +22,7 @@ const Wrapper = styled.section`
     color: #333;
     margin-bottom: 1.5rem;
     text-transform: capitalize;
-    font-family: cursive;
+    font-family: system-ui;
   }
 
   h3 {
@@ -31,26 +31,26 @@ const Wrapper = styled.section`
     color: #333;
     margin-bottom: 1rem;
     text-transform: capitalize;
-    font-family: cursive;
+    font-family: system-ui;
   }
 
   p {
     font-size: 16px;
     color: #333;
     margin-bottom: 1rem;
-    font-family: cursive;
+    font-family: system-ui;
   }
 
   ul {
     list-style-type: disc;
     margin-left: 20px;
     margin-bottom: 1rem;
-    font-family: cursive;
+    font-family: system-ui;
   }
 
   li {
     font-size: 16px;
-    font-family: cursive;
+    font-family: system-ui;
     color: #333;
   }
 
@@ -59,15 +59,18 @@ const Wrapper = styled.section`
 
     h2 {
       font-size: 20px;
+      font-family: system-ui;
     }
 
     h3 {
       font-size: 18px;
+      font-family: system-ui;
     }
 
     p,
     li {
       font-size: 14px;
+      font-family: system-ui;
     }
   }
 `;
