@@ -100,7 +100,7 @@ const Wrapper = styled.section`
           <strong>Cookie:</strong> A small piece of data stored by your web browser to remember information about you, such as your language preference or login details.
         </li>
         <li>
-          <strong>Company:</strong> Refers to First Electronics Solutions, Khasra no. 132/1110 Street no 18, Near Tiranga Building, Rithala, Delhi-110085 responsible for your information under this Privacy Policy.
+          <strong>Company:</strong> Refers to First Electronics Solutions, Khasra no. 264, Gali-4, Near Jivaasha Neo Hospital, Prahlad Vihar, Rohini, Delhi-110042 responsible for your information under this Privacy Policy.
         </li>
         <li>
           <strong>Country:</strong> India, First Electronics Solutions where or its owners/founders are based.

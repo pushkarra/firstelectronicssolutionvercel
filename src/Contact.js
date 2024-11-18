@@ -53,7 +53,7 @@ const Contact = () => {
     <Wrapper>
       <h2 className="common-heading">Contact Us</h2>
       
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3498.914496789605!2d77.09883157529646!3d28.722101180007954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d072ce865eead%3A0x74f7b76f2a904a60!2sFirst%20electronics%20solutions!5e0!3m2!1sen!2sin!4v1697098076417!5m2!1sen!2sin" 
+      <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3498.3188404156876!2d77.08287667550476!3d28.73989597560628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjjCsDQ0JzIzLjYiTiA3N8KwMDUnMDcuNiJF!5e0!3m2!1sen!2sin!4v1731958240655!5m2!1sen!2sin" 
       width="100%" 
       height="400" 
       title="map location"

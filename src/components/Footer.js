@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="container grid grid-four-column">
             <div className="footer-about">
               <h3>First Electronics Solutions</h3>
-              <p>Khasra no.:264 Gali-4, Near Jivaasha Neo Hospital, Prahlad Vihar, Rohini, Delhi, 110042</p>
+              <p>Khasra no. 264, Gali-4, Near Jivaasha Neo Hospital, Prahlad Vihar, Rohini, Delhi-110042</p>
             </div>
             <div className="footer-subscribe">
               <h3>Subscribe to get important updates</h3>
