@@ -3,7 +3,7 @@ import { QRCodeCanvas } from 'qrcode.react';// or import { QRCode } from 'react-
 
 const QRCodeDownload = () => {
   // URL of the file to be downloaded
-  const fileUrl = "https://drive.google.com/file/d/19TneasOYMiHGfMvhcavXvSVsoAG8r9tJ/view?usp=sharing"; // Replace with your actual file URL
+  const fileUrl = `${window.location.origin}/FirstElectronicsSolutions_Catelogue.pdf`; // Replace with your actual file URL
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
