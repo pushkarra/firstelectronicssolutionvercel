@@ -5,31 +5,31 @@ import { NavLink } from 'react-router-dom';
 const carouselData = [
   {
     id: 1,
-    title: 'LUXORA',
+    title: 'TRI-COLOR DRIVER',
     price: '$4,800',
     image: 'pics/122.png',
   },
   {
     id: 2,
-    title: 'GRANDEUR',
+    title: '4 INCH PANEL',
     price: '$3,900',
     image: 'pics/123.png',
   },
   {
     id: 3,
-    title: 'PRESTIGIO',
+    title: 'LED DOWNLIGHT',
     price: '$4,500',
     image: 'pics/125.jpg',
   },
   {
     id: 4,
-    title: 'NOVA',
+    title: 'SMART DRIVER',
     price: '$3,500',
-    image: 'pics/115.jpg',
+    image: 'pics/199.jpeg',
   },
   {
     id: 5,
-    title: 'ECONOMICO',
+    title: '50W BULB',
     price: '$2,200',
     image: 'pics/126.png',
   },
@@ -138,6 +138,10 @@ const ProductImage = styled.img`
   @media (max-width: 768px) {
     max-width: 200px;
     height: 180px;
+  }
+    @media (max-width: 524px) {
+    max-width: 150px;
+    height: 150px;
   }
 `;
 
@@ -293,7 +297,7 @@ const CompactProductCarousel = () => {
         const nextSlide = prevSlide + 1;
         return nextSlide > maxSlide ? 0 : nextSlide;
       });
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(timer);
   }, [windowWidth]);
