@@ -13,7 +13,7 @@ const Nav = () => {
     
     .navbar-lists {
       display: flex;
-      gap: 4.5rem;
+      gap: 2.5rem;
       align-items: center;
 
 
@@ -24,23 +24,20 @@ const Nav = () => {
           display: inline-block;
           text-decoration: none;
           font-size: 2.2rem;
-          border: 6px solid transparent;
+          border: 3px solid transparent;
           border-radius: 10px;
-          font-family: "Lucida Console", "Courier New", monospace;
+          font-family: system-ui;
           font-weight: 500;
-          text-transform: uppercase;
+          
           color: ${({ theme }) => theme.colors.black};
-          transition: color 0.3s linear;
+          transition:  background-color 0.3s linear, color 0.3s linear;
         }
 
         &:hover,
         &:active {
-          border: 4px solid #8b0000;
-          padding: 6px;
-          transform: scale(1.05);
-          background-color: #ffffff;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-          color: #8b0000;
+          background-color: #8b0000;
+          color: #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
           
         }
       }

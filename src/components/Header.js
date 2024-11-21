@@ -47,7 +47,7 @@ const Header = () => {
 // `;
 
 const MainHeader = styled.header`
-  padding: 0 4.8rem;
+  padding: 0 7.8rem;
   height: 7rem;
   background: rgba(255, 255, 255, 0.95); 
   backdrop-filter: blur(8px); 
@@ -58,7 +58,7 @@ const MainHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 
   .radi {
     border-radius: 15px;
@@ -86,7 +86,7 @@ const MainHeader = styled.header`
     }
 
     img {
-      height: 3rem;
+      height: 4rem;
     }
   }
 `;
