@@ -1013,7 +1013,7 @@ const Heading = styled.h1`
 const ProductTitle = styled.h2`
   font-family: 'Montserrat', sans-serif;
   font-size: 1.8rem;
-  background: linear-gradient(45deg, #4a4a4a, #696969);
+  background: linear-gradient(45deg, #28231E, #696969);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
@@ -1228,7 +1228,7 @@ const ProductCarousel = () => {
 
   return (
     <Wrapper>
-      <Heading>Recommended Products</Heading>
+      <Heading>Trending Products</Heading>
       <CarouselContainer>
         {renderCarousel()}
       </CarouselContainer>

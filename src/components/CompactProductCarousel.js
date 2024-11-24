@@ -140,8 +140,8 @@ const ProductImage = styled.img`
     height: 180px;
   }
     @media (max-width: 524px) {
-    max-width: 150px;
-    height: 150px;
+    max-width: 280px;
+    height: 260px;
   }
 `;
 
@@ -256,7 +256,7 @@ const SlidesWrapper = styled.div`
   display: flex;
   transition: transform 0.3s ease-in-out;
 
-  @media (max-width: 768px) and (min-width: 525px) {
+  @media (max-width: 768px) and (min-width: 225px) {
     transform: translateX(-${props => props.currentSlide * (100 / Math.floor(props.totalSlides / 2))}%);
     width: ${props => props.totalSlides * 50}%;
     display: flex;
@@ -373,7 +373,7 @@ const CompactProductCarousel = () => {
 
   return (
     <Wrapper>
-      <Heading>Trending Products</Heading>
+      <Heading>Recommended Products</Heading>
       <CarouselContainer>
         {renderCarousel()}
       </CarouselContainer>
