@@ -8,7 +8,7 @@ const Header = () => {
     <MainHeader >
       <div className="radi">
       <NavLink to="/">
-        <img src="{`${process.env.PUBLIC_URL}/images/logo9.png`} " alt="my logo img" />
+        <img src={`${process.env.PUBLIC_URL}/images/logo9.png`} alt="my logo img" />
       </NavLink>
       </div>
       <Nav />
