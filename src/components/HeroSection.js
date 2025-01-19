@@ -14,7 +14,7 @@ const shine = keyframes`
 `;
 
 const Wrapper = styled.section`
-  min-height: 90vh;
+  min-height: 60vh;
   padding: 7rem 0;
   background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
   position: relative;
