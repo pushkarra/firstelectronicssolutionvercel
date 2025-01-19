@@ -4,14 +4,14 @@ import { NavLink } from 'react-router-dom';
 
 const categories = [
   {
-    id: "https://www.firstelectronics.in/products?page=1&category=Led+Panel",
+    id: "/products?page=1&category=Led+Panel",
     title: 'LED Panels',
     image: 'pics/2_2.jpg',
     count: '12 Products',
     description: 'Illuminate your space with cutting-edge lighting panels featuring LED Downlights, Adjustable LED Panels, and LED Moon Lights. Discover sleek rimless panel designs and versatile surface lights for contemporary aesthetics',
   },
   {
-    id: "https://www.firstelectronics.in/products?page=1&category=4+Inch+Panel+%26+PCB+Solution",
+    id: "/products?page=1&category=4+Inch+Panel+%26+PCB+Solution",
     title: 'Driver & PCB Solution',
     image: 'pics/123.png',
     count: '32 Products',
@@ -19,14 +19,14 @@ const categories = [
   },
   
   {
-    id: "https://www.firstelectronics.in/products?page=1&category=COB+%26+PCB+Solution",
+    id: "/products?page=1&category=Movable+COB",
     title: 'COB Lights & COB Cylinders',
     image: 'pics/204.jpg',
     count: '12 Products',
     description: 'Upgrade your lighting with our premium COB lights, including movable COB lights, stylish COB cylinders, and PCB solutions. Perfect for creating elegant, dynamic lighting effects.',
   },
   {
-    id: "https://www.firstelectronics.in/products?page=1&category=Bulb+%26+PCB+Solution",
+    id: "/products?page=1&category=Bulb+%26+PCB+Solution",
     title: 'Bulb & PCB Solutions',
     image: 'pics/18_a.jpg',
     count: '14 Products',

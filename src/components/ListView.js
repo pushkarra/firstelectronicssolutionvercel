@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
@@ -9,88 +9,54 @@ const ListView = ({ products }) => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get("page"), 10) || 1;
+
   const [currentPage, setCurrentPage] = useState(initialPage);
   const totalPages = Math.ceil(products.length / productsPerPage);
 
-  // Reset to page 1 if current page is beyond total pages
-
+  // Sync the currentPage with the URL on initial load and URL changes
   useEffect(() => {
-
-    if (currentPage > totalPages && totalPages > 0) {
-
-      setCurrentPage(1);
-
-      const newParams = new URLSearchParams(location.search);
-
-      newParams.set("page", "1");
-
-      navigate({ search: newParams.toString() }, { replace: true });
-
+    const pageFromURL = parseInt(queryParams.get("page"), 10) || 1;
+    if (pageFromURL !== currentPage) {
+      setCurrentPage(pageFromURL);
     }
+  }, [location.search, queryParams]);
 
-  }, [totalPages, currentPage, navigate, location.search]);
-
-
-
-  // Update URL when page changes
-
-  useEffect(() => {
-
+  // Update the URL when currentPage changes
+  const updateURL = (page) => {
     const newParams = new URLSearchParams(location.search);
-
-    newParams.set("page", currentPage.toString());
-
+    newParams.set("page", page.toString());
     navigate({ search: newParams.toString() }, { replace: true });
-
-  }, [currentPage, navigate, location.search]);
-
-
-
-  // Reset to page 1 when filter changes (products length changes)
-
-  useEffect(() => {
-
-    setCurrentPage(1);
-
-    const newParams = new URLSearchParams(location.search);
-
-    newParams.set("page", "1");
-
-    navigate({ search: newParams.toString() }, { replace: true });
-
-  }, [products.length, navigate]);
-
+  };
 
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const currentProducts = products.slice(startIndex, endIndex);
 
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   queryParams.set("page", currentPage);
-  //   navigate({ search: queryParams.toString() }, { replace: true });
-  // }, [currentPage, navigate, location.search]);
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
   const handlePageClick = (page) => {
-    setCurrentPage(page);
-    scrollToTop();
+    if (page !== currentPage) {
+      setCurrentPage(page);
+      updateURL(page);
+      scrollToTop();
+    }
   };
 
   const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-    scrollToTop();
+    if (currentPage > 1) {
+      handlePageClick(currentPage - 1);
+    }
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-    scrollToTop();
+    if (currentPage < totalPages) {
+      handlePageClick(currentPage + 1);
+    }
   };
 
   // Generate page numbers with ellipsis
@@ -112,12 +78,9 @@ const ListView = ({ products }) => {
     if (currentPage < totalPages - 2) {
       pages.push("...");
     }
-    // pages.push(totalPages);
 
     if (totalPages > 1) {
-
       pages.push(totalPages);
-
     }
 
     return pages;
@@ -152,46 +115,52 @@ const ListView = ({ products }) => {
           );
         })}
       </div>
-    
-      {products.length > 0 && (
-      
-      <div className="pagination">
-        <button
-          className="arrow-btn"
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}
-        >
-          <span className="arrow-icon">←</span>
-        </button>
-        
-        <div className="page-numbers">
-          {getPageNumbers().map((number, index) => (
-            number === "..." ? (
-              <span key={`ellipsis-${index}`} className="ellipsis">...</span>
-            ) : (
-              <button
-                key={number}
-                className={`page-btn ${currentPage === number ? "active" : ""}`}
-                onClick={() => handlePageClick(number)}
-              >
-                {number}
-              </button>
-            )
-          ))}
-        </div>
 
-        <button
-          className="arrow-btn"
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
-          <span className="arrow-icon">→</span>
-        </button>
-      </div>
+      {products.length > 0 && (
+        <div className="pagination">
+          <button
+            className="arrow-btn"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
+            <span className="arrow-icon">←</span>
+          </button>
+
+          <div className="page-numbers">
+            {getPageNumbers().map((number, index) =>
+              number === "..." ? (
+                <span key={`ellipsis-${index}`} className="ellipsis">
+                  ...
+                </span>
+              ) : (
+                <button
+                  key={number}
+                  className={`page-btn ${
+                    currentPage === number ? "active" : ""
+                  }`}
+                  onClick={() => handlePageClick(number)}
+                >
+                  {number}
+                </button>
+              )
+            )}
+          </div>
+
+          <button
+            className="arrow-btn"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            <span className="arrow-icon">→</span>
+          </button>
+        </div>
       )}
     </Wrapper>
   );
 };
+
+
+
 
 
 const Wrapper = styled.section`

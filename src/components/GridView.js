@@ -9,11 +9,27 @@ const GridView = ({ products }) => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get("page"), 10) || 1;
-  const [currentPage, setCurrentPage] = useState(initialPage);
-  
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const selectedCategory = queryParams.get("category") || "all";
 
-  // Reset to page 1 if current page is beyond total pages
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    // Ensure filtering logic executes only when products and selectedCategory are ready
+    if (products.length > 0) {
+      if (selectedCategory === "all") {
+        setFilteredProducts(products);
+      } else {
+        const categoryFiltered = products.filter(
+          (product) => product.category === selectedCategory
+        );
+        setFilteredProducts(categoryFiltered);
+      }
+    }
+  }, [selectedCategory, products]);
+
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
   useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(1);
@@ -23,29 +39,20 @@ const GridView = ({ products }) => {
     }
   }, [totalPages, currentPage, navigate, location.search]);
 
-  // Update URL when page changes
   useEffect(() => {
     const newParams = new URLSearchParams(location.search);
     newParams.set("page", currentPage.toString());
     navigate({ search: newParams.toString() }, { replace: true });
   }, [currentPage, navigate, location.search]);
 
-  // Reset to page 1 when filter changes (products length changes)
-  useEffect(() => {
-    setCurrentPage(1);
-    const newParams = new URLSearchParams(location.search);
-    newParams.set("page", "1");
-    navigate({ search: newParams.toString() }, { replace: true });
-  }, [products.length, navigate]);
-
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
-  const currentProducts = products.slice(startIndex, endIndex);
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -64,7 +71,6 @@ const GridView = ({ products }) => {
     scrollToTop();
   };
 
-  // Generate page numbers with ellipsis
   const getPageNumbers = () => {
     const pages = [];
     if (totalPages <= 5) {
@@ -76,7 +82,11 @@ const GridView = ({ products }) => {
       pages.push("...");
     }
 
-    for (let i = Math.max(2, currentPage - 1); i <= Math.min(currentPage + 1, totalPages - 1); i++) {
+    for (
+      let i = Math.max(2, currentPage - 1);
+      i <= Math.min(currentPage + 1, totalPages - 1);
+      i++
+    ) {
       pages.push(i);
     }
 
@@ -105,8 +115,7 @@ const GridView = ({ products }) => {
         ))}
       </div>
 
-      {/* Only show pagination if there are products */}
-      {products.length > 0 && (
+      {filteredProducts.length > 0 ? (
         <div className="pagination">
           <button
             className="nav-button"
@@ -115,21 +124,25 @@ const GridView = ({ products }) => {
           >
             <span className="arrow-icon">←</span>
           </button>
-          
+
           <div className="page-numbers">
-            {getPageNumbers().map((number, index) => (
+            {getPageNumbers().map((number, index) =>
               number === "..." ? (
-                <span key={`ellipsis-${index}`} className="ellipsis">...</span>
+                <span key={`ellipsis-${index}`} className="ellipsis">
+                  ...
+                </span>
               ) : (
                 <button
                   key={number}
-                  className={`page-number ${currentPage === number ? "active" : ""}`}
+                  className={`page-number ${
+                    currentPage === number ? "active" : ""
+                  }`}
                   onClick={() => handlePageClick(number)}
                 >
                   {number}
                 </button>
               )
-            ))}
+            )}
           </div>
 
           <button
@@ -140,10 +153,14 @@ const GridView = ({ products }) => {
             <span className="arrow-icon">→</span>
           </button>
         </div>
+      ) : (
+        <p>No products found for the selected category.</p>
       )}
     </Wrapper>
   );
 };
+
+
 
 const Wrapper = styled.section`
   background: linear-gradient(135deg, #fff1f1 0%, #ffe4e4 100%);

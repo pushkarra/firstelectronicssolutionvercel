@@ -1,72 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFilterContext } from "../context/filter_context";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const FilterSection = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
-  
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+
+  // Get selected category from URL or default to "all"
+  const selectedCategory = queryParams.get("category") || "all";
+
   const {
-    filters: { text, category },
+    filters: { text },
     updateFilterValue,
     all_products,
   } = useFilterContext();
 
   const getUniqueData = (data, attr) => {
-    let newVal = data.map((curElem) => {
-      return curElem[attr];
-    });
+    let newVal = data.map((curElem) => curElem[attr]);
     return (newVal = ["all", ...new Set(newVal)]);
   };
 
   const categoryData = getUniqueData(all_products, "category");
 
-  // const handleCategoryClick = (curElem) => {
-  //   updateFilterValue({ target: { name: "category", value: curElem } });
-    
-  //   const searchParams = new URLSearchParams(location.search);
-  //   searchParams.set('page', '1');
-  //   searchParams.set('category', curElem);
-  //   navigate(`${location.pathname}?${searchParams.toString()}`);
-
-  //   setIsFilterOpen(false);
-
-  //   const targetElement = document.getElementById(curElem);
-  //   if (targetElement) {
-  //     targetElement.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+  // Sync category filter with URL changes
+  useEffect(() => {
+    updateFilterValue({ target: { name: "category", value: selectedCategory } });
+  }, [selectedCategory, updateFilterValue]);
 
   const handleCategoryClick = (curElem) => {
-    // Toggle filter logic
-    const newCategory = curElem === category ? "all" : curElem;
-    updateFilterValue({ target: { name: "category", value: newCategory } });
-  
+    const newCategory = curElem === selectedCategory ? "all" : curElem;
+
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", "1");
-  
+
     if (newCategory === "all") {
       searchParams.delete("category");
     } else {
       searchParams.set("category", newCategory);
     }
-  
-    navigate(`${location.pathname}?${searchParams.toString()}`);
-  
-    // Close filter and scroll to top
+
+    navigate({ search: searchParams.toString() });
+
     setIsFilterOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
+
   const handleSearchChange = (e) => {
     updateFilterValue(e);
-    
+
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set('page', '1');
-    searchParams.set('search', e.target.value);
-    navigate(`${location.pathname}?${searchParams.toString()}`);
+    searchParams.set("page", "1");
+    searchParams.set("search", e.target.value);
+    navigate({ search: searchParams.toString() });
   };
 
   const toggleFilter = () => {
@@ -79,7 +66,7 @@ const FilterSection = () => {
         {isFilterOpen ? "Close Filters" : "Open Filters"}
       </button>
 
-      <div className={`filter-section ${isFilterOpen ? 'show' : ''}`}>
+      <div className={`filter-section ${isFilterOpen ? "show" : ""}`}>
         <div className="filter-search">
           <form onSubmit={(e) => e.preventDefault()}>
             <input
@@ -95,26 +82,27 @@ const FilterSection = () => {
         <div className="filter-category">
           <h3>Categories</h3>
           <div className="category-buttons">
-            {categoryData.map((curElem, index) => {
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  name="category"
-                  value={curElem}
-                  className={curElem === category ? "active" : ""}
-                  onClick={() => handleCategoryClick(curElem)}
-                >
-                  {curElem}
-                </button>
-              );
-            })}
+            {categoryData.map((curElem, index) => (
+              <button
+                key={index}
+                type="button"
+                name="category"
+                value={curElem}
+                className={curElem === selectedCategory ? "active" : ""}
+                onClick={() => handleCategoryClick(curElem)}
+              >
+                {curElem}
+              </button>
+            ))}
           </div>
         </div>
       </div>
     </Wrapper>
   );
 };
+
+
+
 
 const Wrapper = styled.section`
   .mobile-filter-btn {
