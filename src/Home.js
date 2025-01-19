@@ -4,8 +4,7 @@ import ProductCarousel from './components/ProductCarousel';
 import FeatureProducts from './components/FeatureProducts';
 import CompactProductCarousel from './components/CompactProductCarousel';
 import SlickCarousel from './slick/SlickCarousel';
-import Services from "./components/Services";
-import QRCodeDownload from './components/QRCodeDownload';
+// import Services from "./components/Services";
 import Footer from "./components/Footer";
 
 const Home = () => {
@@ -19,9 +18,8 @@ const Home = () => {
       <ProductCarousel />
       <FeatureProducts />
       <SlickCarousel />
-      <Services />
+      {/* <Services /> */}
       <CompactProductCarousel />
-      <QRCodeDownload />
       <Footer />
     </>
   );

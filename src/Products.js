@@ -3,14 +3,15 @@ import FilterSection from "./components/FilterSection";
 import ProductList from "./components/ProductList";
 import Sort from "./components/Sort";
 import { useEffect } from 'react';
+import Footer from "./components/Footer";
 // import { useFilterContext } from "./context/filter_context";
 
 const Products = () => {
   useEffect(() => {
-    // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
   }, []);
   return (
+    <>
     <Wrapper>
       <div className="container grid grid-filter-column">
         <div>
@@ -27,12 +28,14 @@ const Products = () => {
         </section>
       </div>
     </Wrapper>
+    <Footer />
+    </>
   );
 };
 
 const Wrapper = styled.section`
 
-background-color:  #FFFFF0 ;
+background: linear-gradient(135deg, #fff1f1 0%, #ffe4e4 100%);
 
 
   .grid-filter-column {

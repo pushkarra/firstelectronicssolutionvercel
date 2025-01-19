@@ -1,3 +1,922 @@
+import React from 'react';
+import { NavLink } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+`;
+
+const shine = keyframes`
+  0% { background-position: -100% 50%; }
+  100% { background-position: 200% 50%; }
+`;
+
+const Wrapper = styled.section`
+  min-height: 90vh;
+  padding: 7rem 0;
+  background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(45deg, #8b0000 0.5%, transparent 1%),
+      linear-gradient(-45deg, #ff4500 0.5%, transparent 1%);
+    background-size: 40px 40px;
+    opacity: 0.03;
+    animation: shift 30s linear infinite;
+  }
+
+  @keyframes shift {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 40px 40px;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.03) 0%, transparent 50%);
+    opacity: 0.6;
+  }
+`;
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+`;
+
+const CompanyName = styled.h1`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 6rem;
+  background: linear-gradient(45deg, #8b0000, #ff4500);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  position: relative;
+  display: inline-block;
+  animation: ${float} 6s ease-in-out infinite;
+
+  &::before {
+    content: 'First Electronics Solutions';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(45deg, #8b0000, #ff4500);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(139,0,0,0.2);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, #8b0000, #ff4500, #8b0000);
+    background-size: 200% auto;
+    animation: ${shine} 3s linear infinite;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 3rem;
+    letter-spacing: 0;
+  }
+`;
+
+const Tagline = styled.h2`
+  font-size: 1.8rem;
+  color: #8b0000;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0.9;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const Description = styled.p`
+  font-family: 'Open Sans', sans-serif;
+  max-width: 800px;
+  font-size: 1.5rem;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 4rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+const PremiumButton = styled.div`
+  a {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    padding: 1.4rem 3.5rem;
+    background: linear-gradient(145deg, #8b0000, #ff4500);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    box-shadow: 0 15px 25px rgba(139,0,0,0.2);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg, 
+        transparent, 
+        rgba(255,255,255,0.3), 
+        transparent
+      );
+      transition: all 0.4s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 35px rgba(139,0,0,0.3);
+
+      &::before {
+        left: 100%;
+      }
+    }
+  }
+`;
+
+const SecondaryButton = styled(PremiumButton)`
+  a {
+    background: transparent;
+    color: #8b0000;
+    border: 2px solid #8b0000;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(139,0,0,0.05);
+      box-shadow: 0 10px 25px rgba(139,0,0,0.1);
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+`;
+
+const Stats = styled.div`
+  display: flex;
+  gap: 4rem;
+  margin-top: 5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(139, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+
+  h3 {
+    font-size: 2.5rem;
+    color: #8b0000;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+`;
+
+const HeroSection = () => {
+  return (
+    <Wrapper>
+      <Container>
+        <CompanyName>First Electronics Solutions</CompanyName>
+        <Tagline>Illuminating Tomorrow's World</Tagline>
+        <Description>
+          At First Electronics Solution, we're pioneering innovative lighting technologies that transform spaces and elevate efficiency. Our cutting-edge LED solutions blend sophisticated design with sustainable performance, delivering intelligent lighting solutions for homes, businesses, and industries.
+        </Description>
+        
+        <ButtonContainer>
+          <PremiumButton>
+            <NavLink to="./products">
+              Explore Products
+            </NavLink>
+          </PremiumButton>
+          <SecondaryButton>
+            <NavLink to="./contact">
+              Contact Us
+            </NavLink>
+          </SecondaryButton>
+        </ButtonContainer>
+
+        <Stats>
+          <StatItem>
+            <h3>10000+</h3>
+            <p>Products Delivered</p>
+          </StatItem>
+          <StatItem>
+            <h3>98%</h3>
+            <p>Customer Satisfaction</p>
+          </StatItem>
+          <StatItem>
+            <h3>7+</h3>
+            <p>Years Experience</p>
+          </StatItem>
+        </Stats>
+      </Container>
+    </Wrapper>
+  );
+};
+
+export default HeroSection;
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////// background pattern with some dark//////////////////////
+
+// import React from 'react';
+// import { NavLink } from "react-router-dom";
+// import styled, { keyframes } from "styled-components";
+
+// const float = keyframes`
+//   0% { transform: translateY(0px); }
+//   50% { transform: translateY(-20px); }
+//   100% { transform: translateY(0px); }
+// `;
+
+// const shine = keyframes`
+//   0% { background-position: -100% 50%; }
+//   100% { background-position: 200% 50%; }
+// `;
+
+// const shimmer = keyframes`
+//   0% {
+//     background-position: -1000px 0;
+//   }
+//   100% {
+//     background-position: 1000px 0;
+//   }
+// `;
+
+// const Wrapper = styled.section`
+//   min-height: 90vh;
+//   padding: 12rem 0;
+//   background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+//   position: relative;
+//   overflow: hidden;
+
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     width: 200%;
+//     height: 200%;
+//     top: -50%;
+//     left: -50%;
+//     background: radial-gradient(circle at center, transparent 30%, #8b0000 100%);
+//     opacity: 0.03;
+//     animation: rotate 30s linear infinite;
+//   }
+
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: 
+//       linear-gradient(45deg, rgba(139, 0, 0, 0.05) 25%, transparent 25%) -20px 0,
+//       linear-gradient(-45deg, rgba(139, 0, 0, 0.05) 25%, transparent 25%) -20px 0,
+//       linear-gradient(45deg, transparent 75%, rgba(139, 0, 0, 0.05) 75%),
+//       linear-gradient(-45deg, transparent 75%, rgba(139, 0, 0, 0.05) 75%);
+//     background-size: 40px 40px;
+//     backdrop-filter: blur(80px);
+//   }
+
+//   .background-shapes {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     overflow: hidden;
+//     z-index: 1;
+//   }
+
+//   .shape {
+//     position: absolute;
+//     background: linear-gradient(45deg, rgba(139, 0, 0, 0.05), rgba(255, 69, 0, 0.05));
+//     border-radius: 50%;
+//   }
+
+//   .shape1 {
+//     width: 400px;
+//     height: 400px;
+//     top: -100px;
+//     right: -100px;
+//     animation: float 8s infinite;
+//   }
+
+//   .shape2 {
+//     width: 300px;
+//     height: 300px;
+//     bottom: -50px;
+//     left: -50px;
+//     animation: float 12s infinite;
+//   }
+
+//   .diagonal-lines {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-image: repeating-linear-gradient(
+//       45deg,
+//       rgba(139, 0, 0, 0.03) 0px,
+//       rgba(139, 0, 0, 0.03) 1px,
+//       transparent 1px,
+//       transparent 30px
+//     );
+//     animation: ${shimmer} 20s linear infinite;
+//   }
+
+//   @keyframes rotate {
+//     0% {
+//       transform: rotate(0deg);
+//     }
+//     100% {
+//       transform: rotate(360deg);
+//     }
+//   }
+// `;
+
+// const Container = styled.div`
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   text-align: center;
+//   position: relative;
+//   z-index: 2;
+// `;
+
+// const CompanyName = styled.h1`
+//   font-family: 'Montserrat', sans-serif;
+//   font-size: 6rem;
+//   background: linear-gradient(45deg, #8b0000, #ff4500);
+//   background-size: 200% auto;
+//   background-clip: text;
+//   -webkit-background-clip: text;
+//   color: transparent;
+//   margin-bottom: 2rem;
+//   font-weight: 900;
+//   text-transform: uppercase;
+//   letter-spacing: -2px;
+//   position: relative;
+//   display: inline-block;
+//   animation: ${float} 6s ease-in-out infinite;
+
+//   &::before {
+//     content: 'First Electronics Solutions';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: -1;
+//     background: linear-gradient(45deg, #8b0000, #ff4500);
+//     background-clip: text;
+//     -webkit-background-clip: text;
+//     color: transparent;
+//     text-shadow: 0 0 15px rgba(139,0,0,0.2);
+//   }
+
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     bottom: -15px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     width: 150px;
+//     height: 4px;
+//     background: linear-gradient(90deg, #8b0000, #ff4500, #8b0000);
+//     background-size: 200% auto;
+//     animation: ${shine} 3s linear infinite;
+//   }
+
+//   @media (max-width: 768px) {
+//     font-size: 4rem;
+//   }
+
+//   @media (max-width: 480px) {
+//     font-size: 3rem;
+//     letter-spacing: 0;
+//   }
+// `;
+
+// const Tagline = styled.h2`
+//   font-size: 1.8rem;
+//   color: #8b0000;
+//   margin-bottom: 2.5rem;
+//   font-weight: 600;
+//   letter-spacing: 1px;
+//   opacity: 0.9;
+
+//   @media (max-width: 768px) {
+//     font-size: 1.5rem;
+//   }
+// `;
+
+// const Description = styled.p`
+//   font-family: 'Open Sans', sans-serif;
+//   max-width: 800px;
+//   font-size: 1.5rem;
+//   color: #444;
+//   line-height: 1.8;
+//   margin-bottom: 4rem;
+//   font-weight: 400;
+//   letter-spacing: 0.5px;
+//   position: relative;
+//   padding: 0 2rem;
+
+//   @media (max-width: 768px) {
+//     font-size: 1.2rem;
+//     padding: 0 1rem;
+//   }
+// `;
+
+// const ButtonContainer = styled.div`
+//   display: flex;
+//   gap: 2rem;
+//   margin-top: 1rem;
+
+//   @media (max-width: 768px) {
+//     flex-direction: column;
+//     gap: 1rem;
+//   }
+// `;
+
+// const PremiumButton = styled.div`
+//   a {
+//     font-family: 'Montserrat', sans-serif;
+//     display: inline-block;
+//     padding: 1.4rem 3.5rem;
+//     background: linear-gradient(145deg, #8b0000, #ff4500);
+//     color: white;
+//     text-transform: uppercase;
+//     font-weight: 700;
+//     font-size: 1.1rem;
+//     letter-spacing: 2px;
+//     border-radius: 50px;
+//     box-shadow: 0 15px 25px rgba(139,0,0,0.2);
+//     transition: all 0.4s ease;
+//     position: relative;
+//     overflow: hidden;
+
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: 0;
+//       left: -100%;
+//       width: 100%;
+//       height: 100%;
+//       background: linear-gradient(
+//         120deg, 
+//         transparent, 
+//         rgba(255,255,255,0.3), 
+//         transparent
+//       );
+//       transition: all 0.4s ease;
+//     }
+
+//     &:hover {
+//       transform: translateY(-5px);
+//       box-shadow: 0 20px 35px rgba(139,0,0,0.3);
+
+//       &::before {
+//         left: 100%;
+//       }
+//     }
+//   }
+// `;
+
+// const SecondaryButton = styled(PremiumButton)`
+//   a {
+//     background: transparent;
+//     color: #8b0000;
+//     border: 2px solid #8b0000;
+//     box-shadow: none;
+
+//     &:hover {
+//       background: rgba(139,0,0,0.05);
+//       box-shadow: 0 10px 25px rgba(139,0,0,0.1);
+//     }
+
+//     &::before {
+//       display: none;
+//     }
+//   }
+// `;
+
+// const Stats = styled.div`
+//   display: flex;
+//   gap: 4rem;
+//   margin-top: 5rem;
+//   padding: 2rem;
+//   background: rgba(255, 255, 255, 0.7);
+//   border-radius: 20px;
+//   backdrop-filter: blur(10px);
+//   box-shadow: 0 8px 32px rgba(139, 0, 0, 0.1);
+
+//   @media (max-width: 768px) {
+//     flex-direction: column;
+//     gap: 2rem;
+//   }
+// `;
+
+// const StatItem = styled.div`
+//   text-align: center;
+
+//   h3 {
+//     font-size: 2.5rem;
+//     color: #8b0000;
+//     font-weight: 700;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   p {
+//     font-size: 1rem;
+//     color: #666;
+//     font-weight: 500;
+//     text-transform: uppercase;
+//     letter-spacing: 1px;
+//   }
+// `;
+
+// const HeroSection = () => {
+//   return (
+//     <Wrapper>
+//       <div className="background-shapes">
+//         <div className="shape shape1"></div>
+//         <div className="shape shape2"></div>
+//         <div className="diagonal-lines"></div>
+//       </div>
+//       <Container>
+//         {/* Previous content remains the same */}
+//         <CompanyName>First Electronics Solutions</CompanyName>
+//         <Tagline>Illuminating Tomorrow's World</Tagline>
+//         <Description>
+//           At First Electronics Solution, we're pioneering innovative lighting technologies that transform spaces and elevate efficiency. Our cutting-edge LED solutions blend sophisticated design with sustainable performance, delivering intelligent lighting solutions for homes, businesses, and industries.
+//         </Description>
+        
+//         <ButtonContainer>
+//           <PremiumButton>
+//             <NavLink to="./products">
+//               Explore Products
+//             </NavLink>
+//           </PremiumButton>
+//           <SecondaryButton>
+//             <NavLink to="./contact">
+//               Contact Us
+//             </NavLink>
+//           </SecondaryButton>
+//         </ButtonContainer>
+
+//         <Stats>
+//           <StatItem>
+//             <h3>1000+</h3>
+//             <p>Projects Completed</p>
+//           </StatItem>
+//           <StatItem>
+//             <h3>98%</h3>
+//             <p>Customer Satisfaction</p>
+//           </StatItem>
+//           <StatItem>
+//             <h3>15+</h3>
+//             <p>Years Experience</p>
+//           </StatItem>
+//         </Stats>
+//       </Container>
+//     </Wrapper>
+//   );
+// };
+
+// export default HeroSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { NavLink } from "react-router-dom";
+// import styled, { keyframes } from "styled-components";
+
+// const particleAnimation = keyframes`
+//   0% { transform: translateY(0) rotate(0deg); }
+//   50% { transform: translateY(-50px) rotate(180deg); }
+//   100% { transform: translateY(0) rotate(360deg); }
+// `;
+
+// const Wrapper = styled.section`
+//   padding: 8rem 0;
+//   background: linear-gradient(135deg, #e0e7f0, #d1dbe6, #c2cdd9);
+//   background-size: 400% 400%;
+//   position: relative;
+//   overflow: hidden;
+//   animation: gradient 15s ease infinite;
+
+//   &::before, &::after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: rgba(0,0,0,0.02);
+//     animation: ${particleAnimation} 10s linear infinite;
+//   }
+
+//   &::after {
+//     animation-delay: -5s;
+//     background: rgba(0,0,0,0.01);
+//   }
+
+//   @keyframes gradient {
+//     0% { background-position: 0% 50%; }
+//     50% { background-position: 100% 50%; }
+//     100% { background-position: 0% 50%; }
+//   }
+// `;
+
+// const CompanyName = styled.h1`
+//   font-family: 'Montserrat', sans-serif;
+//   font-size: 5.5rem;
+//   background: linear-gradient(45deg, #8b0000, #ff4500);
+//   background-size: 200% auto;
+//   background-clip: text;
+//   -webkit-background-clip: text;
+//   color: transparent;
+//   margin-bottom: 5rem;
+//   font-weight: 900;
+//   text-transform: uppercase;
+//   letter-spacing: -4px;
+//   position: relative;
+//   display: inline-block;
+//   transition: text-shadow 0.3s ease;
+
+//   &::before {
+//     content: 'First Electronics Solutions';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: -1;
+//     background: linear-gradient(45deg, #8b0000, #ff4500);
+//     background-clip: text;
+//     -webkit-background-clip: text;
+//     color: transparent;
+//     text-shadow: 0 0 10px rgba(139,0,0,0);
+//     transition: text-shadow 0.3s ease;
+//   }
+
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     bottom: -15px;
+//     left: 0;
+//     width: 100%;
+//     height: 5px;
+//     background: linear-gradient(to right, #8b0000, #ff4500);
+//     transform: scaleX(0);
+//     transition: transform 0.4s ease;
+//   }
+
+//   &:hover {
+//     &::before {
+//       text-shadow: 0 0 15px rgba(139,0,0,0.7);
+//     }
+
+//     &::after {
+//       transform: scaleX(1);
+//     }
+//   }
+
+//   @media (max-width: 525px) {
+//     font-size: 3.5rem;
+//     font-weight: 900;
+//     letter-spacing: 1px;
+//   }
+// `;
+
+// const Container = styled.div`
+//   max-width: 1000px;
+//   margin: 0 auto;
+//   padding: 0 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   text-align: center;
+//   position: relative;
+//   z-index: 2;
+// `;
+
+// const Description = styled.p`
+//   font-family: 'Open Sans', sans-serif;
+//   max-width: 800px;
+//   font-size: 1.5rem;
+//   color: #2c3e50;
+//   line-height: 2;
+//   margin-bottom: 5.5rem;
+//   font-weight: 300;
+//   letter-spacing: 0.7px;
+//   position: relative;
+// `;
+
+// const PremiumButton = styled.div`
+//   a {
+//     font-family: 'Montserrat', sans-serif;
+//     display: inline-block;
+//     padding: 1.2rem 3rem;
+//     background: linear-gradient(145deg, #8b0000, #ff4500);
+//     color: white;
+//     text-transform: uppercase;
+//     font-weight: 700;
+//     font-size: 1.1rem;
+//     letter-spacing: 2px;
+//     border-radius: 50px;
+//     box-shadow: 0 15px 25px rgba(139,0,0,0.2);
+//     transition: all 0.4s ease;
+//     position: relative;
+//     overflow: hidden;
+
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: 0;
+//       left: -100%;
+//       width: 100%;
+//       height: 100%;
+//       background: linear-gradient(
+//         120deg, 
+//         transparent, 
+//         rgba(255,255,255,0.3), 
+//         transparent
+//       );
+//       transition: all 0.4s ease;
+//     }
+
+//     &:hover {
+//       transform: scale(1.1);
+//       box-shadow: 0 20px 35px rgba(139,0,0,0.3);
+
+//       &::before {
+//         left: 100%;
+//       }
+//     }
+//   }
+// `;
+
+// const HeroSection = () => {
+//   return (
+//     <Wrapper>
+//       <Container>
+//         <CompanyName>First Electronics Solutions</CompanyName>
+        
+//         <Description>
+//           "At First Electronics Solution, we're pioneering innovative lighting technologies that transform spaces and elevate efficiency. Our cutting-edge LED solutions blend sophisticated design with sustainable performance, delivering intelligent lighting solutions for homes, businesses, and industries."
+//         </Description>
+        
+//         <PremiumButton>
+//           <NavLink to="./products">
+//             Explore Our Products
+//           </NavLink>
+//         </PremiumButton>
+//       </Container>
+//     </Wrapper>
+//   );
+// };
+
+// export default HeroSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import React from 'react';
 // import { NavLink } from "react-router-dom";
 // import styled from "styled-components";
@@ -575,195 +1494,195 @@
 
 
 
-import React from 'react';
-import { NavLink } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+// import React from 'react';
+// import { NavLink } from "react-router-dom";
+// import styled, { keyframes } from "styled-components";
 
-const particleAnimation = keyframes`
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-50px) rotate(180deg); }
-  100% { transform: translateY(0) rotate(360deg); }
-`;
+// const particleAnimation = keyframes`
+//   0% { transform: translateY(0) rotate(0deg); }
+//   50% { transform: translateY(-50px) rotate(180deg); }
+//   100% { transform: translateY(0) rotate(360deg); }
+// `;
 
-const Wrapper = styled.section`
-  padding: 8rem 0;
-  background: linear-gradient(135deg, #e0e7f0, #d1dbe6, #c2cdd9);
-  background-size: 400% 400%;
-  position: relative;
-  overflow: hidden;
-  animation: gradient 15s ease infinite;
+// const Wrapper = styled.section`
+//   padding: 8rem 0;
+//   background: linear-gradient(135deg, #e0e7f0, #d1dbe6, #c2cdd9);
+//   background-size: 400% 400%;
+//   position: relative;
+//   overflow: hidden;
+//   animation: gradient 15s ease infinite;
 
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.02);
-    animation: ${particleAnimation} 10s linear infinite;
-  }
+//   &::before, &::after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: rgba(0,0,0,0.02);
+//     animation: ${particleAnimation} 10s linear infinite;
+//   }
 
-  &::after {
-    animation-delay: -5s;
-    background: rgba(0,0,0,0.01);
-  }
+//   &::after {
+//     animation-delay: -5s;
+//     background: rgba(0,0,0,0.01);
+//   }
 
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-`;
+//   @keyframes gradient {
+//     0% { background-position: 0% 50%; }
+//     50% { background-position: 100% 50%; }
+//     100% { background-position: 0% 50%; }
+//   }
+// `;
 
-const CompanyName = styled.h1`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 5.5rem;
-  background: linear-gradient(45deg, #8b0000, #ff4500);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  margin-bottom: 5rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -4px;
-  position: relative;
-  display: inline-block;
-  transition: text-shadow 0.3s ease;
+// const CompanyName = styled.h1`
+//   font-family: 'Montserrat', sans-serif;
+//   font-size: 5.5rem;
+//   background: linear-gradient(45deg, #8b0000, #ff4500);
+//   background-size: 200% auto;
+//   background-clip: text;
+//   -webkit-background-clip: text;
+//   color: transparent;
+//   margin-bottom: 5rem;
+//   font-weight: 900;
+//   text-transform: uppercase;
+//   letter-spacing: -4px;
+//   position: relative;
+//   display: inline-block;
+//   transition: text-shadow 0.3s ease;
 
-  &::before {
-    content: 'First Electronics Solutions';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    background: linear-gradient(45deg, #8b0000, #ff4500);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(139,0,0,0);
-    transition: text-shadow 0.3s ease;
-  }
+//   &::before {
+//     content: 'First Electronics Solutions';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: -1;
+//     background: linear-gradient(45deg, #8b0000, #ff4500);
+//     background-clip: text;
+//     -webkit-background-clip: text;
+//     color: transparent;
+//     text-shadow: 0 0 10px rgba(139,0,0,0);
+//     transition: text-shadow 0.3s ease;
+//   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, #8b0000, #ff4500);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-  }
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     bottom: -15px;
+//     left: 0;
+//     width: 100%;
+//     height: 5px;
+//     background: linear-gradient(to right, #8b0000, #ff4500);
+//     transform: scaleX(0);
+//     transition: transform 0.4s ease;
+//   }
 
-  &:hover {
-    &::before {
-      text-shadow: 0 0 15px rgba(139,0,0,0.7);
-    }
+//   &:hover {
+//     &::before {
+//       text-shadow: 0 0 15px rgba(139,0,0,0.7);
+//     }
 
-    &::after {
-      transform: scaleX(1);
-    }
-  }
+//     &::after {
+//       transform: scaleX(1);
+//     }
+//   }
 
-  @media (max-width: 525px) {
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: 1px;
-  }
-`;
+//   @media (max-width: 525px) {
+//     font-size: 3.5rem;
+//     font-weight: 900;
+//     letter-spacing: 1px;
+//   }
+// `;
 
-const Container = styled.div`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-`;
+// const Container = styled.div`
+//   max-width: 1000px;
+//   margin: 0 auto;
+//   padding: 0 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   text-align: center;
+//   position: relative;
+//   z-index: 2;
+// `;
 
-const Description = styled.p`
-  font-family: 'Open Sans', sans-serif;
-  max-width: 800px;
-  font-size: 1.5rem;
-  color: #2c3e50;
-  line-height: 2;
-  margin-bottom: 5.5rem;
-  font-weight: 300;
-  letter-spacing: 0.7px;
-  position: relative;
-`;
+// const Description = styled.p`
+//   font-family: 'Open Sans', sans-serif;
+//   max-width: 800px;
+//   font-size: 1.5rem;
+//   color: #2c3e50;
+//   line-height: 2;
+//   margin-bottom: 5.5rem;
+//   font-weight: 300;
+//   letter-spacing: 0.7px;
+//   position: relative;
+// `;
 
-const PremiumButton = styled.div`
-  a {
-    font-family: 'Montserrat', sans-serif;
-    display: inline-block;
-    padding: 1.2rem 3rem;
-    background: linear-gradient(145deg, #8b0000, #ff4500);
-    color: white;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    border-radius: 50px;
-    box-shadow: 0 15px 25px rgba(139,0,0,0.2);
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
+// const PremiumButton = styled.div`
+//   a {
+//     font-family: 'Montserrat', sans-serif;
+//     display: inline-block;
+//     padding: 1.2rem 3rem;
+//     background: linear-gradient(145deg, #8b0000, #ff4500);
+//     color: white;
+//     text-transform: uppercase;
+//     font-weight: 700;
+//     font-size: 1.1rem;
+//     letter-spacing: 2px;
+//     border-radius: 50px;
+//     box-shadow: 0 15px 25px rgba(139,0,0,0.2);
+//     transition: all 0.4s ease;
+//     position: relative;
+//     overflow: hidden;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        120deg, 
-        transparent, 
-        rgba(255,255,255,0.3), 
-        transparent
-      );
-      transition: all 0.4s ease;
-    }
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: 0;
+//       left: -100%;
+//       width: 100%;
+//       height: 100%;
+//       background: linear-gradient(
+//         120deg, 
+//         transparent, 
+//         rgba(255,255,255,0.3), 
+//         transparent
+//       );
+//       transition: all 0.4s ease;
+//     }
 
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: 0 20px 35px rgba(139,0,0,0.3);
+//     &:hover {
+//       transform: scale(1.1);
+//       box-shadow: 0 20px 35px rgba(139,0,0,0.3);
 
-      &::before {
-        left: 100%;
-      }
-    }
-  }
-`;
+//       &::before {
+//         left: 100%;
+//       }
+//     }
+//   }
+// `;
 
-const HeroSection = () => {
-  return (
-    <Wrapper>
-      <Container>
-        <CompanyName>First Electronics Solutions</CompanyName>
+// const HeroSection = () => {
+//   return (
+//     <Wrapper>
+//       <Container>
+//         <CompanyName>First Electronics Solutions</CompanyName>
         
-        <Description>
-          "At First Electronics Solution, we're pioneering innovative lighting technologies that transform spaces and elevate efficiency. Our cutting-edge LED solutions blend sophisticated design with sustainable performance, delivering intelligent lighting solutions for homes, businesses, and industries."
-        </Description>
+//         <Description>
+//           "At First Electronics Solution, we're pioneering innovative lighting technologies that transform spaces and elevate efficiency. Our cutting-edge LED solutions blend sophisticated design with sustainable performance, delivering intelligent lighting solutions for homes, businesses, and industries."
+//         </Description>
         
-        <PremiumButton>
-          <NavLink to="./products">
-            Explore Our Products
-          </NavLink>
-        </PremiumButton>
-      </Container>
-    </Wrapper>
-  );
-};
+//         <PremiumButton>
+//           <NavLink to="./products">
+//             Explore Our Products
+//           </NavLink>
+//         </PremiumButton>
+//       </Container>
+//     </Wrapper>
+//   );
+// };
 
-export default HeroSection;
+// export default HeroSection;
 
 
 // import React from 'react';

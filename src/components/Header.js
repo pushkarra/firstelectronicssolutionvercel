@@ -55,7 +55,8 @@ const MainHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1000;
   transition: all 0.3s ease-in-out;

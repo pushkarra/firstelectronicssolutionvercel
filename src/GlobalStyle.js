@@ -19,25 +19,35 @@ html {
 }
 
 body {
-  overflow-x: hidden;
-   scrollbar-color: rgb(98 84 243);
-    scrollbar-width: thin;
+      overflow-x: hidden;
+      scrollbar-color: rgb(98, 84, 243);
+      scrollbar-width: thin;
+      padding-top: 6rem;
+      margin: 0;
+    }
+
+/* Global Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-body::-webkit-scrollbar {
-  width: 1.5rem;
+::-webkit-scrollbar-track {
+  background: #fff1f1;
 }
 
-body::-webkit-scrollbar-track {
-   background-color: rgb(24 24 29);
+::-webkit-scrollbar-thumb {
+  background: #8b0000;
+  border-radius: 10px;
 }
 
-body::-webkit-scrollbar-thumb {
- 
-  background: #fff;
-    border: 5px solid transparent;
-    border-radius: 9px;
-    background-clip: content-box;
+::-webkit-scrollbar-thumb:hover {
+  background: #cc0000;
+}
+
+/* Firefox Scrollbar Styles */
+html {
+  scrollbar-color: #8b0000 #fff1f1;
+  scrollbar-width: thin;
 }
 
 h1,
